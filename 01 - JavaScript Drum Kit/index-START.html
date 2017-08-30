@@ -75,6 +75,15 @@ window.addEventListener('keydown', function(e){
  const keys = document.querySelectorAll('.key')
  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
+ //function to end the button press animations
+ function removeTransition(e){
+  //console.log(e); //6 transition end events so we are typically looking for the longest event
+  if(e.propertyName !== 'transform') return; //skip it if it is not a transform
+  // console.log(e.propertyName);
+  // this is equall to what got called against it (key) in line 76
+  this.classList.remove('playing');
+ }
+
 </script>
 
 
