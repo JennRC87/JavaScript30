@@ -60,7 +60,7 @@
 
 <script>
 
-window.addEventListener('keydown', function(e){
+function playSound(e){
   // console.log(e.keyCode); //logs the event code
   const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
   //console.log(audio); //testing to see if it picks up the correct audio file with the correct data-key
@@ -70,19 +70,20 @@ window.addEventListener('keydown', function(e){
   audio.currentTime = 0; //rewind to the start so that if you keep pressing f over and over in succession the button will play in sync with you pressing the button
   audio.play();
   key.classList.add('playing');//this activates the class playing
-});
-
- const keys = document.querySelectorAll('.key')
- keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+}
 
  //function to end the button press animations
  function removeTransition(e){
   //console.log(e); //6 transition end events so we are typically looking for the longest event
   if(e.propertyName !== 'transform') return; //skip it if it is not a transform
   // console.log(e.propertyName);
-  // this is equall to what got called against it (key) in line 76
+  // this is equall to what got called against it (key) in line 85
   this.classList.remove('playing');
  }
+
+const keys = document.querySelectorAll('.key')
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+window.addEventListener('keydown', playSound);
 
 </script>
 
