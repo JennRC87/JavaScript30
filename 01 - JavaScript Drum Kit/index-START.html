@@ -60,6 +60,7 @@
 
 <script>
 
+//if you ever want to play the sound based of off something else, I could
 function playSound(e){
   // console.log(e.keyCode); //logs the event code
   const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
@@ -87,6 +88,12 @@ window.addEventListener('keydown', playSound);
 
 </script>
 
+<!--
+  things learned
+  - key events
+  -playing audio
+  -listening for the transition end event (animation event is the same way)
+ -->
 
 </body>
 </html>
