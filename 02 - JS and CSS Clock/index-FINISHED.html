@@ -75,6 +75,11 @@
   const hourHand = document.querySelector('.hour-hand');
 
   function setDate() {
+
+    if (secondsDegrees >= 444) {
+    secondHand.style.transition = 'none'
+    }
+
     const now = new Date();
 
     const seconds = now.getSeconds();
