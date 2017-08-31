@@ -62,11 +62,16 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%; /* This makes it rotate like a clock (rotates on the right side and not the middle). Default is 50% */
+      transform: rotate(90deg);  /* Starts at the 12:00 position; */
+      transition: all 0.05s; /* Rate at which the hands rotate */
+      /* transition-timing-function: cubic-bezier(0.25, 0.1, 0, 1.27);  This affects how the clock rotates. Wes does this to give the had a jerky movement, but I like it smooth */
     }
 
   </style>
 
   <script>
+
 
 
   </script>
