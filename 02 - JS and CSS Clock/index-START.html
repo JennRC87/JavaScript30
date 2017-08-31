@@ -70,9 +70,22 @@
 
   </style>
 
+
   <script>
 
+  const secondHand = document.querySelector('.second-hand');
+  // const minuteHand = document.querySelector('.min-hand');
+  // const hourHand = document.querySelector('.hour-hand');
 
+  function setDate(){
+    const now = new Date(); //this gets you the current date by seconds
+    const seconds = now.getSeconds(); //this gives you just the current seconds
+    const secondsDegrees = ((seconds/60) * 360) + 90; //gives percentage then multiply it by out full / this is where we we make op for the 90 offset because of where we wanted it to rotate on the right and not the middle
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`; //adding style on the second hand to actually make it rotate but the second hand does not reach the correct positon after awhile so we nned to offset the .hand's rotate(90deg)
+    console.log(seconds)
+  }
+
+  setInterval(setDate, 1000); //this is so now and seconds can appear, repeatedly calls a function or executes a code snippet, with a fixed time delay between each call. (milliseconds)
 
   </script>
 </body>
