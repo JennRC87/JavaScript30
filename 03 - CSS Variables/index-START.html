@@ -9,7 +9,7 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px" data-name="wes" data-cool="😘">
 
     <label for="blur">Blur:</label>
     <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
@@ -34,7 +34,7 @@
     filter: blur(var(--blur));
   }
 
-  .h1{
+  .hl{
     color: var(--base);
   }
 
@@ -61,6 +61,24 @@
   </style>
 
   <script>
+
+  const inputs = document.querySelectorAll('.controls input');
+
+  function handleUpdate(){
+    // console.log(this.value);//this showed the change when I slid the input range slider
+    const suffix = this.dataset.sizing || '';//sizing is what we called the data-sizing, the empty '' is for the color picker that doesn't have a slider, if he didn't add that we're going to append undefined
+    // console.log(this.dataset);//this show whatever has the data- attributes in the html
+    // console.log(suffix);//suffix is so that there is a px add after the number
+    // console.log(this.name);
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);//the value is being updated
+  }
+
+  // listen for a change event on each of the inputs
+  inputs.forEach(input=> input.addEventListener('change', handleUpdate));//arrow function loop, listen for the change event, and when that is called we are going to call handleUpdate
+  inputs.forEach(input=> input.addEventListener('mousemove', handleUpdate));//this is so that when I drag the mouse, it changes even when I slide, and not just when I finished sliding
+
+  //the base variable if it is over written in a lower scope, the lower one wins out like the css cascasde
+
   </script>
 
 </body>
