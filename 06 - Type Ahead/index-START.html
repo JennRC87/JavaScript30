@@ -35,7 +35,17 @@ function findMatches(wordToMatch, cities){
 
 //create a display function
 function displayMatches(){
-  console.log(this.value)
+  const matchArray = findMatches(this.value, cities); //this makes it so that when we type in the input box it is connected to the data
+  // console.log(matchArray);
+  const html = matchArray.map(place =>{
+    return `
+      <li>
+        <span class="name">${place.city}, ${place.state}</span>
+        <span class="population">${place.population}</span>
+      </li>
+    `;
+  }).join('');//turns from an array with multiple items to one big string
+  suggestions.innerHTML = html;
 }
 
 const searchInput = document.querySelector('.search');
