@@ -17,6 +17,33 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = []; //empty array to store the cities into
+
+//getting the info from the endpoint
+fetch(endpoint)
+.then(blob => blob.json())
+.then(data => cities.push(...data)); //spread into the push method (this is to get the info into the cities variable without using let)
+
+//function for taking the array and filter with whatever you start typing
+function findMatches(wordToMatch, cities){
+  return cities.filter(place => {
+    //here we need to figute out if the city or state matches what is searched
+    const regex = new RegExp(wordToMatch, 'gi')//g=global(look through the entire string) i=insensitive(match lower and upper case)
+    return place.city.match(regex) || place.state.match(regex) //checks if the city or state has any matches
+  });
+}
+
+//create a display function
+function displayMatches(){
+  console.log(this.value)
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches); //shows what the person typed
+searchInput.addEventListener('keyup', displayMatches); //shows as they are typing
+
 </script>
   </body>
 </html>
