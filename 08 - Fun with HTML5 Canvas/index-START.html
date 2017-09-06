@@ -16,15 +16,18 @@ ctx.strokeStyle ='#ed2869'; //needs to be a color to start off when you are draw
 ctx.lineJoin = 'round'; //determines how two connecting segments (of lines, arcs or curves) with non-zero lengths in a shape are joined together (degenerate segments with zero lengths, whose specified endpoints and control points are exactly at the same position, are skipped). bevel, round, miter
 ctx.lineCap = 'round'; // determines how the end points of every line are drawn, butt round square
 ctx.lineWidth = 100;
+ctx.globalCompositeOperation = 'exclusion' //blending style
 
 let isDrawing = false; //it only draws when my cursor is down
-let lastX =0; //these two lines are where to start the line from and where you stop the line at
-let lastY =0;
+let lastX = 0; //these two lines are where to start the line from and where you stop the line at
+let lastY = 0;
+let hue = 0;
+let direction = true;
 
 function draw(e){
   if(!isDrawing) return; //stop the function from running when they are not moused down
   console.log(e); //this shows wherever you cursor is at on the page
-
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; //http://mothereffinghsl.com/
   ctx.beginPath();
   //start from
   ctx.moveTo(lastX, lastY);
@@ -34,6 +37,20 @@ function draw(e){
   [lastX, lastY] = [e.offsetX, e.offsetY];
   // lastX = e.offsetX; ⬆ es6 version
   // lastY = e.offsetY;
+  hue++; //increases the hue
+  if (hue > 360){
+    hue = 0; //resets the hue, doesn't really need it though
+  }
+  if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+    direction = !direction;
+  }
+  //this flips the width, changing the width of the line
+  if(direction){
+    ctx.lineWidth++; // width keeps getting bigger
+  } else {
+    ctx.lineWidth--; // width keeps getting smaller
+  }
+
 }
 
 canvas.addEventListener('mousedown', (e) => {
