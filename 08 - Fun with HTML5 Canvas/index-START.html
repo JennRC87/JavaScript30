@@ -7,6 +7,29 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+
+const canvas = document.querySelector('#draw');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.strokeStyle ='#000111'; //needs to be a color to start off when you are drawing
+ctx.lineJoin = 'round'; //determines how two connecting segments (of lines, arcs or curves) with non-zero lengths in a shape are joined together (degenerate segments with zero lengths, whose specified endpoints and control points are exactly at the same position, are skipped). bevel, round, miter
+ctx.lineCap = 'round'; // determines how the end points of every line are drawn, butt round square
+
+let isDrawing = false; //it only draws when my cursor is down
+let lastX =0; //these two lines are where to start the line from and where you stop the line at
+let lastY =0;
+
+function draw(e){
+  if(!isDrawing) return; //stop the function from running when they are not moused down
+  console.log(e); //this shows wherever you cursor is at on the page
+}
+
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mousedown', ()=> isDrawing = true);
+canvas.addEventListener('mouseup', ()=> isDrawing = false);
+canvas.addEventListener('mouseout', ()=> isDrawing = false); //when you go out side of the window it's going to stop running
+
 </script>
 
 <style>
