@@ -22,24 +22,30 @@ function togglePlay(){ //function to play the video
 function updateButton(){
   const icon = this.paused ? '►' : '❚ ❚'; //you can put in whatever symbol you choose
   toggle.textContent = icon;
-  console.log('update the button');
-  console.log(icon);
+  //console.log('update the button');
+  //console.log(icon);
 }
 
 function skip(){
-  console.log(this.dataset.skip);
+  //console.log(this.dataset.skip);
   video.currentTime += parseFloat(this.dataset.skip);
 } //now the skip and back button work
 
 function handleRangeUpdate(){
   video[this.name] = this.value
-  console.log(this.value);
-  console.log(this.name);
+  //console.log(this.value);
+  //console.log(this.name);
 } //this is for the slider controls volume and speed
 
 function handleProgress(){
   const percent = (video.currentTime / video.duration) * 100;
   progressBar.style.flexBasis = `${percent}%`;
+}
+
+function scrub(e){
+  const scrubTime = (e.offsetX / progress.offsetWidth ) * video.duration; //how far into the video divided by the length of the bar
+  video.currentTime = scrubTime;
+  console.log(e);
 }
 
 
@@ -48,9 +54,22 @@ video.addEventListener('click', togglePlay); //this is so the video plays and pa
 video.addEventListener('play', updateButton); //this is for changing the play/pause icon
 video.addEventListener('pause', updateButton); //this is for changing the play/pause icon
 video.addEventListener('timeupdate', handleProgress); //this is for prgress bar to update
+
 toggle.addEventListener('click', togglePlay); //this is so the video plays and pauses when you click the play button
 skipButtons.forEach(button => button.addEventListener('click',skip)); //this is to be able to skip ahead 25 seconds
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate)); //this is so the sliders can work volume and speed
 ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate)); //this is so the sliders can work volume and speed
 
+let mousedown = false;
+progress.addEventListener('click', scrub); //this is so when you click on the progress bar it will go wherever you click
+progress.addEventListener('mousemove', (e) => mousedown && scrub(e)); //this is so when you click on the progress bar it will go wherever you click
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = true);
 
+
+//line 65 can also be
+/* progress.addEventListener('mousemove', () => {
+  if(mousedown){
+    scrub();
+  }
+}); */
