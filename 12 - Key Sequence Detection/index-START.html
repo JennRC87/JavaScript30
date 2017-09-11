@@ -7,6 +7,21 @@
 </head>
 <body>
 <script>
+
+const pressed = [];
+const secretCode = 'wesbos';
+
+window.addEventListener('keyup', (e) => {
+  console.log(e.key); //this lets us know what key was pressed
+  pressed.push(e.key);
+  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length); //The splice() method changes the contents of an array by removing existing elements and/or adding new elements. This starts from the end and goes to the front, it keeps pushing out the first letter that was typed.
+  if(pressed.join('').includes(secretCode)){//turns into string
+    console.log('DING DING!');
+    cornify_add();
+  }
+  console.log(pressed);
+})
+
 </script>
 </body>
 </html>
