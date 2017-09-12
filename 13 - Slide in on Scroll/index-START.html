@@ -58,6 +58,30 @@
       };
     }
 
+    const sliderImages = document.querySelectorAll('.slide-in');
+
+    //function the runs everytime a person scrolls
+    function checkSlide(e){
+      //console.count(e);    //because when we ran this, it ran too many times, we use the debounce function so that it waits 20 milisecs?, when using scroll make sure you debounce
+      // console.log(window.scrollY);//this tells us how many pixels we are after we scrolled down at the top of the browser, we want the bottom so math
+      sliderImages.forEach(sliderImage =>{ //loop
+        //half way through the image
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height/2; //the () gives us the bottom, what we want is for half way through the image for the picture to start transitioning so we do the rest with the - and /
+        console.log(slideInAt);
+        //bottom of the image
+        const imageBottom = sliderImage.offsetTop + sliderImage.height  //this is so that when we scroll back to the top the image transitions again, offsetTop tells us the top of the individual image is how far from the top of the window, the finaal output gives us the bottom of the image
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom; //we want to make the sure that when we scroll past the image it goes back to being hidden
+        if(isHalfShown && isNotScrolledPast){
+          sliderImage.classList.add('active');
+        } else {
+          sliderImage.classList.remove('active');
+        };
+      });
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));
+
   </script>
 
   <style>
