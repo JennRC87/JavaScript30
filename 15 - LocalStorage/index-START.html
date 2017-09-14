@@ -30,6 +30,33 @@
   const itemsList = document.querySelector('.plates');
   const items = [];
 
+  function addItem(e){
+    e.preventDefault(); //keeps the page from reloading when adding item
+    //console.log('Hello');
+    const text = (this.querySelector('[name=item]')).value;
+    const item = {
+      text,  //es6 version of text: text;
+      done: false
+    };
+    items.push(item);//putting itm in items array
+   // console.log(item);
+   populateList(items, itemsList);
+    this.reset();//to clear the input box efter pressing enter, this is the form element
+  }
+
+  function populateList(plates = [], platesList){//he is do it this way instead of reaching outside and grabbing the item, itemList because this function will be able to be more resilient, meaning I can pass in any array of plates and any destination HTML element and it will work, so if in the future I decide to have two different list menus I can stil use the function and pass different arguements
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <label for="">${plate.text}</label>
+        </li>
+      `;
+    }).join(''); //map is going to return an array when we want a string so .join is going to take the array and turn it into one big string
+
+  }
+
+  addItems.addEventListener('submit', addItem); //submit event covers all of your bases, click and  enter
+
 </script>
 
 
