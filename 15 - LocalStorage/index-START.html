@@ -49,7 +49,7 @@
     platesList.innerHTML = plates.map((plate, i) => {
       return `
         <li>
-          <input type="checkbox" date-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
           <label for="item${i}">${plate.text}</label>
         </li>
       `; //used ternary operator to get the cheklist to display whether checked or not
@@ -57,7 +57,17 @@
 
   }
 
+   function toggleDone(e) {
+    if (!e.target.matches('input')) return; // skip this unless it's an input
+    const el = e.target;
+    const index = el.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+  }
+
   addItems.addEventListener('submit', addItem); //submit event covers all of your bases, click and  enter
+  itemsList.addEventListener('click', toggleDone);
 
   populateList(items, itemsList)
 
