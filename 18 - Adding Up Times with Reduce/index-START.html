@@ -182,6 +182,19 @@
     </li>
   </ul>
 <script>
+
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));//converts from node list to array
+  //console.log(timeNodes);
+  const seconds = timeNodes
+    .map(node => node.dataset.time)//can't use this because it is a node list, we want to convert this into an array
+    .map(timeCode =>{//converting into just seconds
+      const [mins, secs] = timeCode.split(':').map(parseFloat);
+      return (mins * 60) + secs;
+      console.log(mins, secs);
+    })
+    .reduce((total, vidSeconds) => total + vidSeconds) //this is where we are adding up all the time
+console.log(seconds);
+
 </script>
 </body>
 </html>
